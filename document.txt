@@ -1,0 +1,138 @@
+ARTIFICIAL INTELLIGENCE AND GENERATIVE AI
+A Knowledge Document for RAG Demonstration
+
+1. Introduction to Artificial Intelligence
+
+Artificial Intelligence, commonly called AI, is a field of computer science concerned with building computer systems that can perform tasks that normally require aspects of human intelligence. These tasks include learning from information, recognizing patterns, understanding language, solving problems, making predictions, planning actions, and supporting decisions. Artificial intelligence is not a single technology. It is a broad area that includes machine learning, deep learning, natural language processing, computer vision, robotics, speech recognition, expert systems, and generative AI.
+
+Traditional software generally follows explicit rules written by programmers. AI systems can instead learn patterns from examples or use models that represent relationships in data. This difference allows AI systems to work with complex information where writing a rule for every possible situation would be difficult. For example, a traditional program may use fixed rules to identify a transaction condition, while a machine learning system can learn patterns associated with normal and unusual transactions from historical examples.
+
+The development of artificial intelligence has progressed through several stages. Early AI research focused strongly on symbolic reasoning, logical rules, search algorithms, and expert systems. Later, machine learning became increasingly important because computers could learn statistical patterns from data. The growth of large datasets, powerful processors, graphics processing units, and improved algorithms contributed to the rapid development of deep learning. More recently, transformer-based models have enabled major advances in language understanding and generation.
+
+2. Machine Learning
+
+Machine learning is a major branch of artificial intelligence. A machine learning system learns a relationship between inputs and desired outputs from data rather than relying entirely on manually written rules. The learning process normally involves collecting data, preparing the data, selecting a model, training the model, evaluating its performance, and deploying the model for practical use.
+
+Supervised learning uses examples where the expected answer is known. Classification is a supervised learning task in which the model predicts a category, such as fraudulent or legitimate, positive or negative, or one product class among several classes. Regression predicts a numerical value, such as a sales amount or a future demand estimate.
+
+Unsupervised learning works with data where labeled answers are not provided. Clustering can group similar customers, documents, or products. Dimensionality reduction can represent high-dimensional information using fewer variables while attempting to preserve important structure.
+
+Reinforcement learning is another approach in which an agent learns by interacting with an environment. The agent takes actions and receives rewards or penalties. Over time, it attempts to learn a strategy that maximizes its expected reward. Reinforcement learning has applications in robotics, games, resource management, and sequential decision-making.
+
+3. Deep Learning
+
+Deep learning uses neural networks containing multiple layers to learn increasingly complex representations. Neural networks are mathematical computational models that transform input values through layers of weighted computations and nonlinear activation functions.
+
+During training, the model compares its prediction with a target and adjusts its parameters using an optimization procedure. Backpropagation and gradient-based optimization are fundamental techniques used to train many neural networks.
+
+Convolutional neural networks have been particularly successful for image-related tasks because they can learn spatial patterns. Recurrent neural networks were historically important for sequential data, although transformer architectures have become dominant for many modern language tasks. Deep learning systems can require substantial computational resources, large datasets, and careful evaluation.
+
+4. Natural Language Processing
+
+Natural Language Processing, or NLP, focuses on enabling computers to process and work with human language. NLP applications include text classification, sentiment analysis, information extraction, translation, summarization, question answering, search, and conversational assistants.
+
+Language is challenging because the same word can have different meanings depending on context. A useful NLP system therefore needs to represent relationships between words, phrases, sentences, and documents. Earlier NLP systems often relied heavily on manually designed linguistic features. Modern systems frequently use neural embeddings and transformer architectures to learn contextual representations.
+
+Tokenization is an important step in language processing. A tokenizer converts text into smaller units called tokens. Depending on the tokenizer, a token may represent a word, part of a word, punctuation, or another text unit. Token IDs are numerical identifiers used by language models to represent these tokens.
+
+5. Transformer Models
+
+The transformer architecture introduced a powerful method for processing sequences using attention mechanisms. Attention allows a model to consider relationships between different parts of an input sequence.
+
+A key concept is self-attention. When processing a token, the model can assign different levels of importance to other tokens in the sequence. This allows the model to capture contextual relationships. Transformers have become central to modern large language models because they can be trained on very large collections of text and then adapted for many language tasks.
+
+Large Language Models, commonly called LLMs, are neural language models trained on large amounts of text. They learn statistical relationships that allow them to predict and generate sequences of tokens. Modern LLMs can answer questions, summarize documents, generate code, transform text, and support conversational applications. However, an LLM can produce an incorrect statement even when the output sounds confident. This problem is often called hallucination.
+
+6. Generative AI
+
+Generative AI refers to systems capable of creating new content from learned patterns. The generated content can include text, images, audio, video, or software code. Large language models are a major example of generative AI for text.
+
+A generative AI application normally contains more than just a model. It may include a user interface, prompt templates, retrieval systems, databases, safety checks, monitoring, and business logic. The quality of the final application depends on how these components work together.
+
+Prompt engineering is the practice of designing instructions that guide a model toward a desired output. A good prompt can specify the role of the assistant, the task, constraints, output format, and information that the model should use. For document question answering, it is useful to explicitly tell the model to rely only on retrieved context.
+
+7. Retrieval-Augmented Generation
+
+Retrieval-Augmented Generation, or RAG, combines information retrieval with language generation. Instead of asking an LLM to answer entirely from information stored in its parameters, a RAG system first searches an external knowledge source. The retrieved passages are then provided to the language model as context.
+
+A typical RAG pipeline begins by loading documents and dividing them into smaller chunks. Each chunk can be converted into an embedding, which is a numerical representation of its meaning. The embeddings are stored in a vector database. When a user asks a question, the question is also embedded and compared with stored vectors to identify semantically similar chunks.
+
+Chunking is important because documents are often too large to send directly to a model. Small chunks make retrieval more precise, while overlap can help preserve information that crosses chunk boundaries. In this project, a chunk size of 300 characters and an overlap of 50 characters are used.
+
+8. Vector Search
+
+Vector search retrieves information based on semantic similarity. A sentence about protecting bank accounts may be retrieved for a query about preventing financial fraud even when the exact words do not match. This is possible because the embedding model represents related meanings in a numerical vector space.
+
+The all-MiniLM-L6-v2 model is a compact sentence-transformer model commonly used to generate embeddings for semantic similarity and retrieval experiments. Each text chunk is transformed into a vector, and a query is transformed into another vector. A similarity or distance measure can then be used to rank the chunks.
+
+Vector search is powerful for natural-language questions, paraphrases, and conceptual relationships. However, it may not always be ideal for exact identifiers, rare technical terms, product codes, or names. This is one reason hybrid retrieval is useful.
+
+9. BM25 Keyword Search
+
+BM25 is a traditional information-retrieval ranking method. It evaluates how important query terms are within documents while considering term frequency and document length. Rare terms can contribute strongly to the relevance score.
+
+BM25 is useful when exact words matter. For example, if a document contains a specific product code such as PX-2048, a keyword retriever can be very effective at locating the exact passage containing that code. BM25 does not need to understand the complete semantic meaning of a question to identify important lexical matches.
+
+A limitation of BM25 is that it can struggle when the query and document use different words to express the same concept. A hybrid system can combine BM25's lexical strength with vector search's semantic strength.
+
+10. Hybrid Search and Reciprocal Rank Fusion
+
+Hybrid retrieval combines different search methods to improve recall and relevance. In this project, vector search and BM25 are both used to retrieve candidate chunks. Their ranked lists are then combined using Reciprocal Rank Fusion, or RRF.
+
+RRF does not require the raw scores from different retrieval systems to be directly comparable. Instead, it uses the rank of a result. A simplified formula is:
+
+RRF score = sum of 1 / (k + rank)
+
+where k is a constant, commonly set to 60. A chunk that appears near the top of both the vector and BM25 rankings receives a strong combined score.
+
+Hybrid search is useful in practical document assistants because users ask questions in many different ways. Some queries contain exact terms, while others describe a concept indirectly. Combining both retrieval strategies provides a more balanced retrieval process.
+
+11. Cross-Encoder Reranking
+
+Initial retrieval is normally designed to be efficient. After retrieving a small set of candidate chunks, a more expensive model can be used to examine relevance in greater detail. A cross-encoder takes the question and candidate passage together and produces a relevance score.
+
+In this project, the model cross-encoder/ms-marco-MiniLM-L-6-v2 is used to rerank the top 10 hybrid results. The three highest-scoring chunks are then selected as the final context.
+
+Reranking helps remove candidates that may have appeared in the initial retrieval list because of partial keyword overlap or broad semantic similarity. The cross-encoder can evaluate the relationship between the complete question and the complete passage.
+
+12. ChromaDB
+
+ChromaDB is a vector database that can store documents, embeddings, identifiers, and metadata. It provides a convenient way to persist and query vector representations.
+
+In the RAG pipeline, each document chunk receives an identifier such as chunk_0 or chunk_1. Its embedding is stored with the corresponding text. During retrieval, the query embedding is compared with the stored embeddings and the most relevant chunks are returned.
+
+13. LangChain and LLM Answer Generation
+
+After retrieval and reranking, the selected chunks are placed into a context string. A prompt template then sends the context and the user's question to a language model.
+
+The system prompt in this project tells the model:
+
+"Answer using ONLY the context. If the answer cannot be found in the context, say: Not in context."
+
+This instruction is important because it encourages grounded responses. The model should not rely on unrelated knowledge when answering a question about the supplied document.
+
+LangChain can help organize prompt templates, model calls, and retrieval components. Ollama allows a local language model to be used on a user's computer, which can be useful for experiments where external API access is not desired.
+
+14. Business Applications
+
+A document Q&A system can provide value in many organizations. A bank may have internal policies, product documentation, compliance procedures, and training material. Employees could ask questions about these documents instead of manually searching through many files.
+
+An insurance company could use RAG to help staff find information in policy documents. A manufacturing company could use it to answer questions about equipment manuals and operating procedures. A university could provide a student assistant that searches course material. A customer-support organization could retrieve relevant product information before generating a response.
+
+The same architecture can also support a personal knowledge assistant. A user could index their notes, study material, project documentation, or reference books and ask questions about them.
+
+15. Limitations and Responsible Use
+
+RAG does not automatically guarantee correct answers. If the retrieval stage selects poor chunks, the language model may not have enough information to answer correctly. Chunk size, embedding quality, retrieval settings, reranking, and document quality can all affect results.
+
+Documents may also contain outdated, contradictory, or incorrect information. A business deployment therefore needs document governance, access control, monitoring, evaluation, and regular updates.
+
+The system should not be assumed to replace professional judgment in high-risk areas. For sensitive business decisions, retrieved information should be reviewed by an appropriate person.
+
+16. Conclusion
+
+Artificial intelligence combines many technologies that allow computers to learn patterns, process language, analyze information, and generate content. Generative AI and large language models have made natural-language interfaces much more accessible, but they can still produce unsupported information.
+
+Retrieval-Augmented Generation addresses part of this problem by connecting an LLM to an external knowledge source. Hybrid retrieval improves the search stage by combining BM25 keyword matching with vector semantic search. Reciprocal Rank Fusion combines the rankings, while a cross-encoder provides a second relevance check before the final context reaches the LLM.
+
+The resulting architecture provides a practical foundation for document question answering. It demonstrates how modern AI applications can combine traditional information retrieval, neural embeddings, vector databases, reranking models, and language generation into one end-to-end system.
